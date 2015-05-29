@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean 
+		id="helloWorld" 
+		class="com.ermolaev.hellospring.Messager" 
+		init-method="init"
+		destroy-method="destroy"
+		>
+		<property name="message" value="Hello world!"/>
+	</bean>
+	
+	<bean
+		id="helloWorldEx"
+		class="com.ermolaev.hellospring.MessagerEx"
+		parent="helloWorld"
+		>
+		<property name="threadName" value="HiThread"/>
+	</bean>
+	
+	<bean
+		id="goodbyeWorld"
+		abstract="true"
+		>
+		<property name="message" value="Goodbye World!"/>	
+	</bean>
+	
+	<bean
+		id="goodbyeWorldEx"
+		class="com.ermolaev.hellospring.MessagerEx"
+		parent="goodbyeWorld"
+		>
+		<property name="threadName" value="ByeThread" />
+	</bean>
+	
+	<bean
+		id="personInfo"
+		class="com.ermolaev.hellospring.PersonInfo"
+		>
+		<constructor-arg ref="composePersonInfo" />
+	</bean>
+	
+	<bean
+		id="composePersonInfo"
+		class="com.ermolaev.hellospring.ComposePersonInfo"
+		>
+		<property name="incObject" ref="increment" />
+		<property name="printNumber" value="5" />
+	</bean>
+	
+	<bean
+		id="increment"
+		class="com.ermolaev.hellospring.Increment"
+		>
+		<property name="count" value="0" />
+	</bean>
+		
+	<bean
+		id="countries"
+		class="com.ermolaev.hellospring.Countries"
+		>
+		<property name="countryList">
+			<list>
+				<value>Russia</value>
+				<value>USA</value>
+				<value>USA</value>
+				<value>Iceland</value>
+			</list>
+		</property>
+		
+		<property name="countrySet">
+			<set>
+				<value>Russia</value>
+				<value>USA</value>
+				<value>USA</value>
+				<value>Iceland</value>
+			</set>
+		</property>
+		
+		<property name="countryMap">
+			<map>
+				<entry key="1" value="Russia" />
+				<entry key="2" value="USA" />
+				<entry key="3" value="USA" />
+				<entry key="4" value="Iceland" />
+			</map>
+		</property>
+		
+		<property name="countryProps">
+			<props>
+				<prop key="one">Russia</prop>
+				<prop key="two">USA</prop>
+				<prop key="three">USA</prop>
+				<prop key="four">Iceland</prop>
+			</props>
+		</property>
+		
+	</bean>
+		
+	<!-- InitMessagers for the Bean Post Processing -->
+	<bean class="com.ermolaev.hellospring.InitMessagers" />
+
+</beans>
+
+
